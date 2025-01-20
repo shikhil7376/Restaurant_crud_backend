@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectToDatabase } from "./config/connectDb";
 import projectRouter from './routes/projectRoutes'
+import { errorHandle } from "./middleware/errorHandle";
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors(corsOption));
 
 app.use('/api/project',projectRouter)
+
+app.use(errorHandle)
 
 const PORT = process.env.PORT || 3000;
 const startServer = async (): Promise<void> => {
