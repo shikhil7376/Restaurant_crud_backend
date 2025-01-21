@@ -16,13 +16,14 @@ export const getData = asyncErrorHandler(
         const details = await RestaurantModel.find()
         .skip((page - 1) * limit) // Skip records based on current page
         .limit(limit) // Limit the number of records returned
-        .sort({ order: 1 }); //
+        .sort({ createdAt: -1 }); //
 
         const data = details.map((detail) => ({
             id: detail._id,
             restaurantName: detail.restaurantName,
             contactNo: detail.contactNo,
-            image: detail. image,
+            image: detail.image,
+            address:detail.address,
           }));
 
           if(!data){
