@@ -7,9 +7,10 @@ import { StatusCodes } from "http-status-codes";
 
 export const getData = asyncErrorHandler(
     async(req:Request,res:Response,next:NextFunction)=>{
+      
         const page = parseInt(req.query.page as string) || 1; // default page is 1
         const limit = parseInt(req.query.limit as string) || 10;
-
+  
         const totalCount = await RestaurantModel.countDocuments()
         
         const details = await RestaurantModel.find()
@@ -30,11 +31,11 @@ export const getData = asyncErrorHandler(
 
           return res.status(StatusCodes.OK).json({
             data,
-            pagination:{
-                currentPage:page,
-                totalPage:Math.ceil(totalCount/limit),
-                totalCount
-            }
+            pagination: {
+              currentPage: page,
+              totalPages: Math.ceil(totalCount / limit), 
+              totalCount,
+          }
           })
     }
 )
