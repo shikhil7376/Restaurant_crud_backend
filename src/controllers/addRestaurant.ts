@@ -8,7 +8,6 @@ import { StatusCodes } from "http-status-codes";
 export const addRestaurantDetails = asyncErrorHandler(
     async(req:Request,res:Response,next:NextFunction)=>{
         const { restaurantName, address, contactNo, image } = req.body;
-       console.log('body',req.body)
        
         if (!restaurantName || !address || !contactNo || !image) {
            throw new BadRequestError("All fields is required")
